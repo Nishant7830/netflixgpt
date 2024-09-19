@@ -4,7 +4,6 @@ import Header from './Header';
 import  { checkValidData } from '../utils/validate';
 import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword,updateProfile} from "firebase/auth";
 import { auth } from "../utils/firebase";
-import {  useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 
@@ -12,7 +11,7 @@ import { addUser } from '../utils/userSlice';
 const Login = () => {
   const [isSignInForm,setIsSignForm] = useState(true);
   const [errorMessage,setErrorMessage] =useState(null);
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const name = useRef(null);
   const email = useRef(null);
@@ -22,11 +21,11 @@ const Login = () => {
   }
   const handleButtonClick =() =>{
     //Validate the form data
-    console.log(email.current.value);
+    
    
-  console.log(password.current.value);
+
   const message = checkValidData(email.current.value,password.current.value);
-  console.log(message);
+ 
 setErrorMessage(message);
  
 
@@ -49,13 +48,12 @@ updateProfile(user, {
   email:email,
   displayName:displayName,
   photoURL:photoURL}));
-    navigate("/brower");
+   
 
 }).catch((error) => {
     setErrorMessage(error.message);
 });
-    console.log(user);
-    navigate("/browse");
+    
     // ...
   })
   .catch((error) => {
@@ -72,8 +70,7 @@ updateProfile(user, {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        console.log(user);
-        navigate("/browse");
+      
         // ...
       })
       .catch((error) => {
